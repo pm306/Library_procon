@@ -1,0 +1,1 @@
+bool inside(int y, int x){return y >= 0 and y < H and x >= 0 and x < W;}

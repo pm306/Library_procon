@@ -1,0 +1,13 @@
+template<class T> vector<T> compress(vector<T> V){
+    vector<T> vals = V;
+    sort(all(vals));
+    UNIQUE(vals);
+
+    vector<T> ret;
+    for(auto &x : V){
+        int idx = lower_bound(all(vals), x) - vals.begin();
+        ret.push_back(idx);
+    }
+    return ret;
+}
+

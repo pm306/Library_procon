@@ -1,0 +1,16 @@
+//グラフが二部グラフか判定する。
+//init:=color.assign(N, -1)
+vector<int> color; //彩色。0,1:=着色済み,-1:=未着色
+bool isBipartitleGraph(vector<vector<int>> &G, int v, int col=0){
+    color[v] = col;
+    for(auto& nv : G[v]){
+        //隣接頂点が同色で彩色済みなら二部グラフではない
+        if(color[nv] != -1){
+            if(color[nv] == color[v])return false;
+            continue;
+        }
+        //未彩色なら彩色する。いずれかの隣接頂点がアウトだったらアウト
+        if(!isBipartitleGraph(G, nv, 1-col))return false;
+    }
+    return true;
+}

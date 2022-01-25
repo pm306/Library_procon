@@ -1,0 +1,13 @@
+ll perm(ll n, ll r){ll res = 1; for(int i=n; i>n-r; i--)res *= i;return res;}
+
+ll comb(ll n, ll r){
+    if(n < r)return 0;
+    if(n==0 or r==0)return 1;
+    ll res = 1, a = n, b = 1;
+    rep(i, r){res *= a; res /= b; a--; b++;}
+    return res;
+}
+
+ll Hcomb(ll n, ll r){
+    return comb(n+r-1, r);
+}

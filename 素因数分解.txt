@@ -1,0 +1,16 @@
+vector<pll> primeFactrization(ll n){
+    vector<pll> res;
+    for(ll i=2; i*i<=n; i++){
+        if(n % i == 0){
+            ll exp = 0;
+            while(n % i == 0){
+                exp++;
+                n /= i;
+            }
+            res.emplace_back(i, exp);
+        }
+    }
+    if(n != 1)res.emplace_back(n, 1); //n‚ª1‚Å‚È‚¯‚ê‚Î•K‚¸‘f”
+
+    return res;
+}

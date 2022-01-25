@@ -1,0 +1,13 @@
+//a‚Ìbæ‚ğ•Ô‚·
+template<class T> T power(T a, ll b){
+    T num = a;
+    T res = 1;
+    while(b){
+        if((b & 1)){
+            res *= num;
+        }
+        num *= num;
+        b >>= 1;
+    }
+    return res;
+}

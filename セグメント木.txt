@@ -1,0 +1,55 @@
+//セグメント木
+template<class T> struct SegTree{
+    using Func = function<T(T, T)>;
+    const Func F; //二項演算を行う関数
+    const T EX; //単位元
+    int N; //要素数
+    vector<T> tree;
+
+    //コンストラクタ n:要素数、f:比較関数、ex:初期値
+    SegTree(int n, const Func f, const T ex) : F(f), EX(ex){ init(n); }
+    void init(int n){
+        N = 1;
+        while(N < n) N *= 2;
+        tree.assign(N * 2, EX);
+    }
+
+    //構築
+    void set(int k, T a){ tree[k + N - 1] = a; }
+    void build(){
+        for(int i = N - 2; i >= 0; i--){
+            tree[i] = F(tree[i*2+1], tree[i*2+2]);
+        }
+    }
+
+    //更新
+    void update(int k, const T &v){
+        k += N - 1;
+        tree[k] = v;
+        while(k > 0){
+            k = (k - 1) / 2;
+            tree[k] = F(tree[k*2+1], tree[k*2+2]);
+        }
+    }
+
+    //取得
+    T get(int k){ return tree[k + N - 1];}
+
+    //区間[a, b)最適値の取得
+    T query(int a, int b){ return subquery(a, b, 0, 0, N);}
+    T subquery(int a, int b, int k, int l, int r){
+        if(r <= a or b <= l) return EX;
+        if(a <= l and r <= b) return tree[k];
+
+        T vl = subquery(a, b, k*2+1, l, (l+r)/2);
+        T vr = subquery(a, b, k*2+2, (l+r)/2, r);
+        return F(vl, vr);
+    }
+
+	void print(){
+		for(int i=N-1; i<N*2-1; i++){
+			cout << tree[i] << " ";
+		}
+		cout << ln;
+	}
+};

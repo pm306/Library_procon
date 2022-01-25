@@ -1,0 +1,16 @@
+using edge = tuple<int, int, ll>; //from, to, cost
+
+bool bellman_ford(int V, vector<edge> &edges, vector<ll> &dist, int r = 0){
+    dist.assign(V, INF); dist[r] = 0;
+    for(int i=0; i<V; i++){
+        bool relax = false;
+        for(auto& [from, to, cost] : edges){
+            if(dist[from] == INF)continue;
+            relief |= chmin(dist[to], dist[from] + cost);
+        }
+        if(i == V - 1 and relax){
+            return true; //•‰‚Ì•Â˜H‚ðŒŸo
+        }
+    }
+    return false;
+}
